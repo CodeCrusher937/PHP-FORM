@@ -1,25 +1,50 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
 
-include ('connection.php');
+        <table>
+            <tr>
+                <h1>Dashboard</>
+                <form action="update.php" method="POST">
+                    <?php 
+                    
+    include ('connection.php');
 
-session_start();
-
-
-$sql = "SELECT * FROM users WHERE name = '$_SESSION[user]'";
-
-// echo $_SESSION[user];
-
-$query = mysqli_query($connection, $sql);
-
-$rows = mysqli_fetch_assoc($query);
-
-// echo $rows;
-echo $rows['name'], "<br>";
-echo $rows['phone'], "<br>";
-echo $rows['email'], "<br>";
-echo $rows['Age'],"<br>";
+    include ('navigator.php');
+    session_start();
 
 
-// session_destroy();
+    $sql = "SELECT * FROM users WHERE name = '$_SESSION[user]'";
 
-?>
+    // echo $_SESSION[user];
+
+    $query = mysqli_query($connection, $sql);
+
+    $row = mysqli_fetch_assoc($query);
+
+
+
+                    ?>
+
+                    <label >Name</label>
+                    <input type="text" name="name" value="<?php echo $row['name'] ?>"><br><br>
+                
+                    <label>Email</label>
+                    <input type="text" name="email" value="<?php echo $row['email'] ?>"><br><br>
+
+                    <label>phone</label>
+                    <input type="phone" name="phone" value="<?php echo $row['phone'] ?>"><br><br>
+                    <input type="number" name="id" style="display:none;" value="<?php echo $row['id'] ?>"><br><br>
+                    
+
+                    <button type="submit" name="update">update</button>
+                </form>
+            </tr>    
+        </table>       
+    </body>            
+</html>
